@@ -27,7 +27,7 @@ class YOLO(object):
     def __init__(self):
         self.model_path = './model_data/yolo.h5'
         self.anchors_path = 'model_data/yolo_anchors.txt'
-        self.classes_path = 'model_data/obj.txt'
+        self.classes_path = 'model_data/coco_classes.txt'
         #具体参数可实验后进行调整
         if args["class"] == 'person':
            self.score = 0.6 #0.8
@@ -41,12 +41,7 @@ class YOLO(object):
            self.score = 0.6
            self.iou = 0.6
            self.model_image_size = (416, 416)
-
-        if args["class"] == 'fire_extinguisher' or args["class"] == 'fireplug':
-           self.score = 0.4#0.4
-           self.iou = 0.6
-           self.model_image_size = (416, 416)
-
+        
         self.class_names = self._get_class()
         self.anchors = self._get_anchors()
         self.sess = K.get_session()
@@ -128,7 +123,7 @@ class YOLO(object):
                print(predicted_class)
                continue
             '''
-            if predicted_class != args["class"]:#and predicted_class != 'car':
+            if predicted_class != args["class"]:
                #print(predicted_class)
                continue
 
